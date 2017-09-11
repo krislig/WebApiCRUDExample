@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WebApiCRUD.Models
 {
@@ -11,29 +12,29 @@ namespace WebApiCRUD.Models
             _documentDbRepository = documentDBRepository;
         }
 
-        public void Add(Product product)
+        public async Task AddAsync(Product product)
         {
-            _documentDbRepository.CreateItemAsync(product).Wait();
+            await _documentDbRepository.CreateItemAsync(product);
         }
 
-        public void DeleteById(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            _documentDbRepository.DeleteItemAsync(id).Wait();
+            await _documentDbRepository.DeleteItemAsync(id);
         }
 
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAllAsync()
         {
-            return _documentDbRepository.GetItemsAsync().Result;
+            return await _documentDbRepository.GetItemsAsync();
         }
 
-        public Product GetById(int id)
+        public async Task<Product> GetByIdAsync(int id)
         {
-            return _documentDbRepository.GetItemAsync(id).Result;
+            return await _documentDbRepository.GetItemAsync(id);
         }
 
-        public void Update(int id, Product product)
+        public async Task UpdateAsync(int id, Product product)
         {
-            _documentDbRepository.UpdateItemAsync(id, product).Wait();
+            await _documentDbRepository.UpdateItemAsync(id, product);
         }
     }
 }

@@ -18,18 +18,19 @@ namespace WebApiCRUD.Controllers
             _productRepository = productRepository;
         }
 
-        // GET: api/products
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return Ok(_productRepository.GetAll());
+            var results = await _productRepository.GetAllAsync();
+
+            return Ok(results);
         }
 
         // GET: api/products/5
         [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var product = _productRepository.GetById(id);
+            var product = await _productRepository.GetByIdAsync(id);
 
             if (product == null)
                 return NotFound();
@@ -39,33 +40,33 @@ namespace WebApiCRUD.Controllers
 
         // POST: api/products
         [HttpPost]
-        public IActionResult Post([FromBody] Product product)
+        public async Task<IActionResult> PostAsync([FromBody] Product product)
         {
             if (product == null)
                 return BadRequest();
 
-            _productRepository.Add(product);
+            await _productRepository.AddAsync(product);
 
-            return CreatedAtRoute("products", new { id = product.Id }, product);
+            return Ok();
         }
 
         // PUT: api/products/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Product product)
+        public async Task<ActionResult> PutAsync(int id, [FromBody] Product product)
         {
             if (product == null)
                 return BadRequest();
 
-            _productRepository.Update(id, product);
+            await _productRepository.UpdateAsync(id, product);
 
             return Ok();
         }
 
         // DELETE: api/products/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteAsync(int id)
         {
-            _productRepository.DeleteById(id);
+            await _productRepository.DeleteByIdAsync(id);
 
             return Ok();
         }

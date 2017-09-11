@@ -3,6 +3,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WebApiCRUD.Controllers;
 using WebApiCRUD.Models;
 using Xunit;
@@ -22,14 +23,14 @@ namespace WebApiCRUD.Tests
         };
 
         [Fact]
-        public void Get_GetAllProducts_Ok()
+        public async void Get_GetAllProducts_Ok()
         {
             var mockRepository = new Mock<IProductRepository>();
-            mockRepository.Setup(x => x.GetAll()).Returns(SampleProducts);
+            mockRepository.Setup(x => x.GetAllAsync()).Returns(Task.FromResult<IEnumerable<Product>>(SampleProducts));
 
             var productsController = new ProductsController(mockRepository.Object);
 
-            var response = productsController.Get();
+            var response = await productsController.GetAsync();
 
             Assert.IsAssignableFrom<OkObjectResult>(response);
             OkObjectResult result = response as OkObjectResult;
@@ -43,27 +44,27 @@ namespace WebApiCRUD.Tests
         }
 
         [Fact]
-        public void Post_AddProduct_Ok()
+        public async void Post_AddProduct_Ok()
         {
             var mockRepository = new Mock<IProductRepository>();
 
             var productsController = new ProductsController(mockRepository.Object);
 
-            var response = productsController.Post(new Product() { Id = "123", Name = "Test", Description = "Test Description", Price = 11.90m });
+            var response = await productsController.PostAsync(new Product() { Id = "123", Name = "Test", Description = "Test Description", Price = 11.90m });
 
-            Assert.IsAssignableFrom<CreatedAtRouteResult>(response);
-            var result = response as CreatedAtRouteResult;
+            Assert.IsAssignableFrom<OkResult>(response);
+            var result = response as OkResult;
             Assert.NotNull(result);
         }
 
         [Fact]
-        public void Post_AddProduct_BadRequest()
+        public async void Post_AddProduct_BadRequest()
         {
             var mockRepository = new Mock<IProductRepository>();
 
             var productsController = new ProductsController(mockRepository.Object);
 
-            var response = productsController.Post(null);
+            var response = await productsController.PostAsync(null);
 
             Assert.IsAssignableFrom<BadRequestResult>(response);
             var result = response as BadRequestResult;
@@ -72,14 +73,14 @@ namespace WebApiCRUD.Tests
         }
 
         [Fact]
-        public void Get_GetProductById_Ok()
+        public async void Get_GetProductById_Ok()
         {
             var mockRepository = new Mock<IProductRepository>();
-            mockRepository.Setup(x => x.GetById(99)).Returns(new Product() { Id = "99" });
+            mockRepository.Setup(x => x.GetByIdAsync(99)).Returns(Task.FromResult<Product>(new Product() { Id = "99" }));
 
             var productsController = new ProductsController(mockRepository.Object);
 
-            var response = productsController.Get(99);
+            var response = await productsController.GetAsync(99);
 
             Assert.IsAssignableFrom<OkObjectResult>(response);
             OkObjectResult result = response as OkObjectResult;
@@ -93,14 +94,14 @@ namespace WebApiCRUD.Tests
         }
 
         [Fact]
-        public void Get_GetProductById_NotFound()
+        public async void Get_GetProductById_NotFound()
         {
             var mockRepository = new Mock<IProductRepository>();
-            mockRepository.Setup(x => x.GetById(99)).Returns<Product>(null);
+            mockRepository.Setup(x => x.GetByIdAsync(99)).Returns(Task.FromResult<Product>(null));
 
             var productsController = new ProductsController(mockRepository.Object);
 
-            var response = productsController.Get(99);
+            var response = await productsController.GetAsync(99);
 
             Assert.IsAssignableFrom<NotFoundResult>(response);
             NotFoundResult result = response as NotFoundResult;
@@ -108,13 +109,13 @@ namespace WebApiCRUD.Tests
         }
 
         [Fact]
-        public void Put_Update_Ok()
+        public async void Put_Update_Ok()
         {
             var mockRepository = new Mock<IProductRepository>();
 
             var productsController = new ProductsController(mockRepository.Object);
 
-            var response = productsController.Put(99, new Product() { Id = "99", Name = "new name", Description = "new description", Price = 10.0m });
+            var response = await productsController.PutAsync(99, new Product() { Id = "99", Name = "new name", Description = "new description", Price = 10.0m });
 
             Assert.IsAssignableFrom<OkResult>(response);
             OkResult result = response as OkResult;
@@ -122,13 +123,13 @@ namespace WebApiCRUD.Tests
         }
 
         [Fact]
-        public void Delete_Remove_Ok()
+        public async void Delete_Remove_Ok()
         {
             var mockRepository = new Mock<IProductRepository>();
 
             var productsController = new ProductsController(mockRepository.Object);
 
-            var response = productsController.Delete(99);
+            var response = await productsController.DeleteAsync(99);
 
             Assert.IsAssignableFrom<OkResult>(response);
             OkResult result = response as OkResult;
