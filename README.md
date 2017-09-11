@@ -1,2 +1,3 @@
 # WebApiCRUDExample
-Web API CRUD Example
+
+Simple ASP.NET Core WebApi application for CRUD using Azure CosmosDB (DocumentDB)
