@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCRUD", "WebApiCRUD\WebApiCRUD.csproj", "{0F273C6E-839E-44D9-9805-C57EA7E39DCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiCRUD.Tests", "WebApiCRUD.Tests\WebApiCRUD.Tests.csproj", "{61A379E2-A1AC-4962-AB38-1BD03E9E5EAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F273C6E-839E-44D9-9805-C57EA7E39DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F273C6E-839E-44D9-9805-C57EA7E39DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F273C6E-839E-44D9-9805-C57EA7E39DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F273C6E-839E-44D9-9805-C57EA7E39DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A379E2-A1AC-4962-AB38-1BD03E9E5EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A379E2-A1AC-4962-AB38-1BD03E9E5EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A379E2-A1AC-4962-AB38-1BD03E9E5EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A379E2-A1AC-4962-AB38-1BD03E9E5EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C69A2DE-860C-4DA5-B575-65D733CFD0A9}
+	EndGlobalSection
+EndGlobal
